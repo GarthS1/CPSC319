@@ -1,3 +1,4 @@
+package fib;
 public class fib {
 // medain 
 	public static void main(String[] args) {
@@ -14,7 +15,7 @@ public class fib {
 		for(int i = 0; i < 101; i++)
 			arr[i] = -1;
 		
-		for(int i = 0; i < 5000; i++)
+		for(int i = 0; i < 100; i++)
 		{
 			long timePast = System.nanoTime();
 			long num = fibMem(i, arr);
