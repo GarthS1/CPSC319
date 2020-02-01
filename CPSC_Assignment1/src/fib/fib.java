@@ -51,13 +51,12 @@ public class fib {
 				num = fibItr(i);
 				timeTaken = System.nanoTime()- timePast;
 				itr[j] = timeTaken;
-				System.out.println(num);
 				
 				//getting time for Alg. 5
 			  timePast = System.nanoTime();
 				num = fibMat(i);
 				timeTaken = System.nanoTime()- timePast;
-				dyn[j] = timeTaken;
+				mat[j] = timeTaken;
 			}
 			
 			//sum up the arrays 
@@ -80,11 +79,11 @@ public class fib {
 			mat_average /= 5;
 			
 			//print out times taken
-			//System.out.println(rec_average + " time to compute F" + i + " with alg.1");
-			//System.out.println(mem_average + " time to compute F" + i + " with alg.2");
-			//System.out.println(dyn_average + " time to compute F" + i + " with alg.3");
+			System.out.println(rec_average + " time to compute F" + i + " with alg.1");
+			System.out.println(mem_average + " time to compute F" + i + " with alg.2");
+			System.out.println(dyn_average + " time to compute F" + i + " with alg.3");
 			System.out.println(itr_average + " time to compute F" + i + " with alg.4");
-			//System.out.println(mat_average + " time to compute F" + i + " with alg.5");
+			System.out.println(mat_average + " time to compute F" + i + " with alg.5");
 		}
 	}	
 
@@ -200,13 +199,54 @@ public class fib {
 		if(i == 0) //base condition
 			return 0;
 		
-		long fm[][] = { {1,1}, {1,0} };
-		matExp(fm);
+		long fm[][] = new long[][] { {1,1}, {1,0} };
+		matExp(i - 1, fm);
 		return fm[0][0];
-		
 	}
 	
-	private static void matExp(long arr[][]) {
-		
+	/** 
+	 * Caculates the power of an matrix
+	 * @param n intger to raise the power 
+	 * @param arr 2x2 matrix
+	 */
+	private static void matExp(int n, long arr[][]) {
+		if(n > 1) // if n = 1 don't do any multiplication 
+		{
+			matExp(n/2, arr);
+			
+			long temp[][] = new long[2][2]; // temp array for multiplication 
+			for(int i = 0; i < 2; i++) 
+			{
+				for(int j = 0; j < 2; j++)
+				{
+					for(int k = 0; k < 2; k++)
+						temp[i][j] += arr[i][k] * arr[k][j]; // matrix multiplication 
+				}
+			}
+			
+			//changes vaules into arr 
+			for(int i = 0; i < 2; i++)
+				for(int j = 0; j < 2; j++)
+					arr[i][j] = temp[i][j];
+
+			if(n % 2 == 1) // checking if n is odd 
+			{
+				long update[][]  = new long[2][2]; // temp array for multiplication
+				long basic[][]	 = { {1,1}, {1,0}};
+				for(int i = 0; i < 2; i++)
+				{
+					for(int j = 0; j < 2; j++)
+					{
+						for(int k = 0; k < 2; k++)
+							update[i][j] += arr[i][k] * basic[k][j]; // matrix multiplication 
+					}
+				}
+				
+			  //changes vaules into arr 
+			  for(int i = 0; i < 2; i++)
+					for(int j = 0; j < 2; j++)
+						arr[i][j] = update[i][j];
+			}
+		}
 	}
 }
