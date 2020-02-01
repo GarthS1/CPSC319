@@ -1,3 +1,5 @@
+//Make javadoc documentation 
+// all public static except the array for alg.2 and matrix power (make functions) 
 package fib;
 public class fib {
 // medain 
