@@ -1,3 +1,4 @@
+
 package fib;
 /**
  * Contains five different ways to calculate the Fibonacci series 
@@ -350,25 +351,8 @@ public class fib {
 			for(int i = 0; i < 2; i++)
 				for(int j = 0; j < 2; j++)
 					arr[i][j] = temp[i][j];
-
-			if(n % 2 == 1) // checking if n is odd 
-			{
-				long update[][]  = new long[2][2]; // temp array for multiplication
-				long basic[][]	 = { {1,1}, {1,0}};
-				for(int i = 0; i < 2; i++)
-				{
-					for(int j = 0; j < 2; j++)
-					{
-						for(int k = 0; k < 2; k++)
-							update[i][j] += arr[i][k] * basic[k][j]; // matrix multiplication 
-					}
-				}
-				
-			  //changes vaules into arr 
-			  for(int i = 0; i < 2; i++)
-					for(int j = 0; j < 2; j++)
-						arr[i][j] = update[i][j];
-			}
 		}
 	}
 }
+
+
