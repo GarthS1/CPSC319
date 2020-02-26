@@ -13,12 +13,12 @@ public class Word implements Comparable<Word> {
 	 */
 	private String sortedWord;
 	/**
-	 * Default constructor for Word that generates sorted word
+	 * Constructor for Word that generates sorted word
 	 * @param word Original string used 
 	 */
 	public Word (String word) {
-		this.setWord(word);
-		setSortedWord(sort(word));
+		this.word = word;
+		sortedWord = sort(word);
 	}
 	/**
 	 * Elementary sort (selection sort) to make sortedWord
@@ -27,36 +27,41 @@ public class Word implements Comparable<Word> {
 	 */
 	private String sort(String word) {
 		
-		for(int i = 0; i < word.length(); i++) {
-			char min = word.charAt(i);
-			int j = i + 1;
-			for (; j < word.length() - i; j++) {
-				if( min < word.charAt(j)) {
-					min = word.charAt(j);
+		for(int i = word.length() - 1; i >= 0 ; i--) {
+			char max = word.charAt(i);
+			int maxPos = i;
+			int j = 0;
+			for (; j < i ; j++) {
+				if( max < word.charAt(j)) {
+					max = word.charAt(j);
+					maxPos = j;
 				}
-			 	char[] wordChars = word.toCharArray(); // convert to char array to change the one element of the array 
-			 	wordChars[j] = min;
-			 	word = String.valueOf(wordChars);
 			}
+			char[] wordChars = word.toCharArray(); // convert to char array to change the one element of the array 
+		 	char temp = wordChars[i];
+		 	wordChars[i] = max;
+		 	wordChars[maxPos] = temp;
+		 	word = String.valueOf(wordChars);
 		}
 		return word;	
 	}
+	
 	@Override
 	public int compareTo(Word arg0) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getSortedWord().compareTo(arg0.getSortedWord());
 	}
+	/**
+	 * Getter for String
+	 * @return String of original word
+	 */
 	public String getWord() {
 		return word;
 	}
-	public void setWord(String word) {
-		this.word = word;
-	}
+	/**
+	 * Getter for sorted String 
+	 * @return Sorted word 
+	 */
 	public String getSortedWord() {
 		return sortedWord;
 	}
-	public void setSortedWord(String sortedWord) {
-		this.sortedWord = sortedWord;
-	}
-
 }
