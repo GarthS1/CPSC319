@@ -1,7 +1,6 @@
 /**
  * Class word stores both the original string and the sorted string
  * @author garth.slaney
- *
  */
 public class Word implements Comparable<Word> {
 	/**
@@ -26,29 +25,28 @@ public class Word implements Comparable<Word> {
 	 * @return sortedWord the word sorted 	
 	 */
 	private String sort(String word) {
-		
+		char[] wordChars = word.toCharArray(); // convert to char array to change the elements of the array 
 		for(int i = word.length() - 1; i >= 0 ; i--) {
-			char max = word.charAt(i);
+			char max = wordChars[i];
 			int maxPos = i;
 			int j = 0;
 			for (; j < i ; j++) {
-				if( max < word.charAt(j)) {
-					max = word.charAt(j);
+				if( max < wordChars[j]) {
+					max = wordChars[j];
 					maxPos = j;
 				}
 			}
-			char[] wordChars = word.toCharArray(); // convert to char array to change the one element of the array 
 		 	char temp = wordChars[i];
 		 	wordChars[i] = max;
 		 	wordChars[maxPos] = temp;
-		 	word = String.valueOf(wordChars);
 		}
+	 	word = String.valueOf(wordChars);
 		return word;	
 	}
 	
 	@Override
 	public int compareTo(Word arg0) {
-		return getSortedWord().compareTo(arg0.getSortedWord());
+		return getWord().compareTo(arg0.getWord());
 	}
 	/**
 	 * Getter for String
@@ -63,5 +61,9 @@ public class Word implements Comparable<Word> {
 	 */
 	public String getSortedWord() {
 		return sortedWord;
+	}
+	@Override
+	public String toString() {
+		return getWord();
 	}
 }

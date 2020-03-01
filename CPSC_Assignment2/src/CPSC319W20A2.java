@@ -1,12 +1,15 @@
   
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 	
 	public class CPSC319W20A2 {
 		public static void main(String args[]) {
-			ArrayList<Word> input = new ArrayList<Word>();
-			addInput(input);
-			// sort by n^2 sort
+			ArrayList<Word> a = new ArrayList<Word>();
+			addInput(a);
+			quickSort(a);
+			ArrayList<LinkedList<Word>> b = createList(a);
+			for(LinkedList<Word> w : b) {
+				w.print();
+			}
 		}
 	/**
 	 * Adds the word from the file 
@@ -23,14 +26,38 @@ import java.util.Scanner;
     }
 	  scanner.close();
 	}
+	/**
+	 * Quick sort the list to alphabetical order 
+	 * @param <T> The object type to be sorted
+	 * @param list The list to be sorted 
+	 */
+	public static void quickSort (ArrayList<Word> list) {
 	
-	/*public static void quickSort <T extends Comparable>(ArrayList<T> list) {
+	}
+	/**
+	 * Creates an array of LinkedList from input
+	 * @param input The sorted input
+	 * @param output The array of LinkedList 
+	 */
+	private static ArrayList<LinkedList<Word>> createList(ArrayList<Word> input) {
+		ArrayList<LinkedList<Word>> output = new ArrayList<LinkedList<Word>>();
 		
-	}*/
+		for(int i = 0; i < input.size(); i++) {
+			if(input.get(i).getWord() != "") {
+				LinkedList<Word> list = new LinkedList<Word>();
+				list.insertHead(input.get(i));
+				
+				// traverse list looking for anagrams 
+				for(int j = i + 1; j < input.size(); j++) {
+					if(input.get(i).getSortedWord().equals(input.get(j).getSortedWord())) {
+						list.insertTail(input.get(j));
+						input.set(j, new Word("")); //set to a "null" word that can't be compared to 
+					}
+				}
+				
+				output.add(list);
+			}
+		}
+		return output;
+	}
 }
-	
-	//have a word object with comarable sortedWord impmentsd Comperable<Word> 
-	//@overirde compareTo (word o)
-	// getworrd.lower case to comparTo (stirng) tolowercase (ingnore and do sort word )
-	// quciksort with 
-	// soer with c	omparabel List<T> list publiv static <T extends Comparable> 

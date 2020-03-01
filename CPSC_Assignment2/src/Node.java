@@ -2,7 +2,7 @@
  * Stores objects of type T 
  * @author garth.slaney
  * @version 1.0 
- * @param <T>
+ * @param <T> The object type in node 
  */
 public class Node<T> {
 	/**
@@ -31,26 +31,26 @@ public class Node<T> {
 	}
 	/**
 	 * Returns value of T
-	 * @return T
+	 * @return T The value of the node 
 	 */
 	public T getValue() {
 		return value;
 	}
-	
+	/**
+	 * Sets the nextNode of the linked list
+	 * @param nextNode The next node of the linked list
+	 */
 	public void setNextNode(Node <T> nextNode) {
 		this.nextNode = nextNode;
 	}
 	/**
-	 * 
-	 * @return
+	 * Gets the next node
+	 * @return The next node of the linked list
 	 */
 	public Node<T> getNextNode() {
 		return nextNode;
 	}
 	
-	/**
-	 * Converts the object T into a string that can be printed 
-	 */
 	@Override
 	public String toString() {
 		String s;
