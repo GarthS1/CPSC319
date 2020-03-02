@@ -20,7 +20,7 @@ public class Word implements Comparable<Word> {
 		sortedWord = sort(word);
 	}
 	/**
-	 * Elementary sort (selection sort) to make sortedWord
+	 * Elementary sort (selection sort) O(n^2) to make sortedWord
 	 * @param word Word to be sorted
 	 * @return sortedWord the word sorted 	
 	 */
