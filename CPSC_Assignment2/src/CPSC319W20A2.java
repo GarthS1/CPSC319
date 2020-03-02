@@ -6,9 +6,6 @@ import java.util.*;
 			ArrayList<Word> a = new ArrayList<Word>();
 			addInput(a);
 			quickSort(a, 0, a.size() - 1);
-			/*for(Word w : a) {
-				System.out.println(w);
-			}*/
 			ArrayList<LinkedList<Word>> b = createList(a);
 			for(LinkedList<Word> w : b) {
 				w.print();
@@ -30,7 +27,7 @@ import java.util.*;
 	  scanner.close();
 	}
 	/**
-	 * Quick sort the list to alphabetical order 
+	 * Quick sort the list to alphabetical order O(nlog(n))
 	 * @param list The list to be sorted 
 	 */
 	public static void quickSort(ArrayList<Word> list, int low, int high) {
@@ -41,9 +38,15 @@ import java.util.*;
 			quickSort(list, index + 1, high);			
 		}
 	}
-	
+	/**
+	 * Sort the list using quick sort method 
+	 * @param list The list too be sorted 
+	 * @param low The start of the list
+	 * @param high The end of the list
+	 * @return The midpoint fo teh list
+	 */
 	private static int findParition(ArrayList<Word> list, int low, int high) {
-		int index = (int)(Math.random() * (high - low) + low); // picks a random pivot
+		int index = (int)(Math.random()*((high-low)+1))+low; // picks a random pivot
 		swap(list, index, low);
 		int too_big_index = low;
 		int too_small_index = high;
