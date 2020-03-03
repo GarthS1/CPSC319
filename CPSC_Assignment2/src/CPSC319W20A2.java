@@ -39,11 +39,11 @@ import java.util.*;
 		}
 	}
 	/**
-	 * Sort the list using quick sort method 
+	 * Sort the list using quick sort method  
 	 * @param list The list too be sorted 
 	 * @param low The start of the list
 	 * @param high The end of the list
-	 * @return The midpoint fo teh list
+	 * @return The pivot for the list
 	 */
 	private static int findParition(ArrayList<Word> list, int low, int high) {
 		int index = (int)(Math.random()*((high-low)+1))+low; // picks a random pivot

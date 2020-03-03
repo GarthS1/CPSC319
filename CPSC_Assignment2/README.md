@@ -1,0 +1,1 @@
+CPSC319W20A2.java” is my main class and should be executed, after compiling with “Makefile”, with no arguments
