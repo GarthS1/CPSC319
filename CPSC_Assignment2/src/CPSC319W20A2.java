@@ -1,16 +1,20 @@
   
 import java.util.*;
-	
-	public class CPSC319W20A2 {
-		public static void main(String args[]) {
-			ArrayList<Word> a = new ArrayList<Word>();
-			addInput(a);
-			quickSort(a, 0, a.size() - 1);
-			ArrayList<LinkedList<Word>> b = createList(a);
-			for(LinkedList<Word> w : b) {
-				w.print();
-			} 
-		}
+/**
+ * Main class which houses the main function for the program as well as the quicksort method used to sort 	
+ * @author Garth
+ *
+ */
+public class CPSC319W20A2 {
+	public static void main(String args[]) {
+		ArrayList<Word> allWords = new ArrayList<Word>();
+		addInput(allWords);
+		quickSort(allWords, 0, allWords.size() - 1);
+		ArrayList<LinkedList<Word>> linkLists = createList(allWords);
+		for(LinkedList<Word> w : linkLists) {
+			w.print();
+		} 
+	}
 	/**
 	 * Adds the word from the file 
 	 * @param input Arraylist of Words to be added too 
@@ -46,22 +50,22 @@ import java.util.*;
 	 * @return The pivot for the list
 	 */
 	private static int findParition(ArrayList<Word> list, int low, int high) {
-		int index = (int)(Math.random()*((high-low)+1))+low; // picks a random pivot
-		swap(list, index, low);
+		int pivot = low + ( (int)Math.random() * list.size() )/(high - low + 1); // picks a random pivot
+		swap(list, pivot, low); // set pivot to first element 
 		int too_big_index = low;
 		int too_small_index = high;
 		while(too_small_index > too_big_index) {
-			while(list.get(too_big_index).compareTo(list.get(index)) <= 0 && too_big_index < too_small_index){
+			while(list.get(too_big_index).compareTo(list.get(pivot)) <= 0 && too_big_index < too_small_index){
 				too_big_index++;
 			}
-			while(list.get(too_small_index).compareTo(list.get(index)) > 0) {
+			while(list.get(too_small_index).compareTo(list.get(pivot)) > 0) {
 				too_small_index--;	
 			}
 			if(too_big_index < too_small_index) {
 				swap(list, too_big_index, too_small_index);
 			}
 		}
-		swap(list, too_small_index, index); 
+		swap(list, too_small_index, pivot); 
 		return too_small_index;
 	}
 	/**
@@ -95,7 +99,6 @@ import java.util.*;
 						input.set(j, new Word("")); //set to a "null" word that can't be compared to 
 					}
 				}
-				
 				output.add(list);
 			}
 		}
