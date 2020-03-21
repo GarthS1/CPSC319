@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class BinarySearchTree {
   /**
@@ -33,7 +35,7 @@ public class BinarySearchTree {
 			right_child = null;
 		}
 		/**
-		 * Get's word 
+		 * Gets word 
 		 * @return word of the node 
 		 */
 		public String getWord() {
@@ -95,8 +97,15 @@ public class BinarySearchTree {
 	 */
 	public BinarySearchTree( String[] words) {
 		for( String s: words) {
-			insert( s);
+			insert(s);
 		}
+	}
+	/**
+	 * Returns the root of the tree
+	 * @return Root of the tree
+	 */
+	public Node getRoot() {
+		return root;
 	}
 	/**
 	 * Inserts the data properly into the binary tree 
@@ -127,14 +136,62 @@ public class BinarySearchTree {
 		}
 		return ref; // return just the node 
 	}
-	
-	public void display() {
-		System.out.println( "Total number of words: " + totalNum(root) );
-		System.out.println( "Number of unique words: " + uniqWords(root) );
-		//System.out.println(n.getWord() + " " + n.getFrequency());
-		//System.out.println(n.getWord() + " " + n.getFrequency());
+	/**
+	 * Displays the information of the tree 
+	 * @param fileName 
+	 */
+	public void displayOutput(String fileName) {
+		System.out.println( "Total number of words in " + fileName + " : " + totalNum(root) );
+		System.out.println( "Number of unique words in " + fileName + " : " + uniqWords(root) );
+		System.out.println( "The word(s) which occur(s) most often and the number of times that it/they occur(s)");
+		ArrayList<Node> list = new ArrayList<Node>();
+		mostWords(root, list);
+		for( Node n: list) 
+			System.out.println(n.getWord() + " = " + n.getFrequency() + " times");
+		System.out.println("The maximum height of the tree = " + findMaxHeight(root));
 	}
-	
+	/**
+	 * Finds the max height of the tree 
+	 * @param n The node currently at 
+	 * @return The height currently at 
+	 */
+	private int findMaxHeight(Node n) {
+		if (n == null )
+			return 0;
+		else {
+			int l = findMaxHeight(n.getLeft());
+			int r = findMaxHeight(n.getRight());
+			if( l > r)
+				return l + 1; 
+			return r + 1;
+		}
+	}
+	/**
+	 * Finds the words that occurs most in the list using pre-order
+	 * @param n The node currently at 
+	 * @param list The list to keep track of all words that occur the most
+	 */
+	private void mostWords(Node n, ArrayList<Node> list) {
+		if(n != null) {
+			if ( list.isEmpty() ) {
+				list.add(n);
+			}
+			else if(list.get(0).getFrequency() < n.getFrequency() ) {
+				list.clear();
+				list.add(n);
+			}
+			else if(list.get(0).getFrequency() == n.getFrequency() ) {
+				list.add(n);
+			}
+		 mostWords( n.getLeft(), list);
+		 mostWords( n.getRight(), list);
+		}
+	}
+	/**
+	 * Counts the number of unique words using in-order 
+	 * @param n The node to search through 
+	 * @return The number of unique words 
+	 */
 	private int uniqWords(Node n) {
 		if( n != null ) {
 			int num = 0;
@@ -147,15 +204,76 @@ public class BinarySearchTree {
 		}
 		return 0;
 	}
-	
+	/**
+	 * Counts the total number of words using post-fix
+	 * @param n The node 
+	 * @return The total number of words
+	 */
 	private int totalNum(Node n) {
-		if( n != null) {
+		if(n != null) {
 			int l = totalNum( n.getLeft());
 			int r = totalNum( n.getRight());
 			return l + r + 1;
 		}
 		return 0;
-		
 	}
-
+	/** 
+	 * Runs the user interface for entering which word to look for and calls the search method to print the frequency if it exists or prints that it doesn't 
+	 * @param scan The scanner for reading user input 
+	 * @param fileName 
+	 */
+	public void lookUp(Scanner scan, String fileName) {
+		System.out.println("Enter the word you are looking for in " + fileName + " : ");
+		String word = scan.next();
+		int freq = search(word, root);
+		if( freq == 0) {
+			System.out.println("Word not found!");
+		}
+		else {
+			System.out.println("Found! It appears " + freq + " times in the input text file");
+		}
+	}
+	/**
+	 * Searches for a word in the tree 
+	 * @param word The word looking for 
+	 * @param n Current reference node 
+	 * @return The frequency of the word 
+	 */
+	private int search(String word, Node n) {
+		int freq = 0;
+		if( n == null)
+			return 0;
+		if ( n.getWord().compareTo(word) > 0) {
+			freq = search( word, n.getLeft());
+		}
+		else if ( n.getWord().compareTo(word) < 0) {
+			freq = search( word, n.getRight());
+		}
+		else if( n.getWord().compareTo(word) == 0) {
+			freq = n.getFrequency();
+		}
+		return freq;
+	}
+	
+	public void inOrder(Node n) {
+		if(n != null) {
+			inOrder(n.getLeft());
+			System.out.print(n.getWord() + " ");
+			inOrder( n.getRight());
+		}
+	}
+	public void preOrder(Node n) {
+		if(n != null) {
+			System.out.print(n.getWord() + " ");
+			preOrder( n.getLeft());
+			preOrder( n.getRight());
+		}
+	}
+	public void postOrder(Node n) {
+		if(n != null) {
+			postOrder(n.getLeft());
+			postOrder( n.getRight());
+			System.out.print(n.getWord() + " ");
+		}
+	}
 }
