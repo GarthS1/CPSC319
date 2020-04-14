@@ -254,7 +254,10 @@ public class BinarySearchTree {
 		}
 		return freq;
 	}
-	
+	/**
+	 * Prints the tree in order recursively 
+	 * @param n The node pointing currently being used 
+	 */
 	public void inOrder(Node n) {
 		if(n != null) {
 			inOrder(n.getLeft());
@@ -262,6 +265,10 @@ public class BinarySearchTree {
 			inOrder( n.getRight());
 		}
 	}
+	/**
+	 * Prints the tree in pre-Order recursively 
+	 * @param n The node pointing currently being used 
+	 */
 	public void preOrder(Node n) {
 		if(n != null) {
 			System.out.print(n.getWord() + " ");
@@ -269,6 +276,10 @@ public class BinarySearchTree {
 			preOrder( n.getRight());
 		}
 	}
+	/**
+	 * Prints the tree in post-Order recursively 
+	 * @param n The node pointing currently being used 
+	 */
 	public void postOrder(Node n) {
 		if(n != null) {
 			postOrder(n.getLeft());
